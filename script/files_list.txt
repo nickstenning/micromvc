@@ -1,16 +1,15 @@
+'vendor/mootools-trunk-1515.js'
 
-  'tiny_mce/tiny_mce_src.js'
+'assets/behaviour/master.js'
 
-'tiny_mce/setup.js'
+'app/lib/model.js'
 
-'http://localhost:3007/demos/tiny_mce/tiny_mce/langs/en.js'
+'app/lib/controller.js'
 
-'http://localhost:3007/demos/tiny_mce/tiny_mce/themes/advanced/editor_template_src.js'
+'vendor/ejs/ejs.js'
 
-'http://localhost:3007/demos/tiny_mce/tiny_mce/themes/advanced/langs/en.js'
+'app/models/factlet.js'
 
-'http://localhost:3007/demos/tiny_mce/tiny_mce/plugins/insertdatetime/editor_plugin_src.js'
+'app/models/thread.js'
 
-'http://localhost:3007/demos/tiny_mce/tiny_mce/plugins/contextmenu/editor_plugin_src.js'
-
-'http://localhost:3007/demos/tiny_mce/tiny_mce/plugins/emotions/editor_plugin_src.js'
+'app/controllers/thread_controller.js'

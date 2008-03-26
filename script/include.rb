@@ -1,5 +1,6 @@
 #Example:
 #ruby include.rb -p "../public/demos/tiny_mce/" -f "files_list.txt" -d "../public/demos/tiny_mce/production.js"
+require 'rubygems'
 require 'getoptlong'
 require 'fileutils'
 require 'json'

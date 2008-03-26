@@ -1,0 +1,1 @@
+var ThreadController = new Controller($('#thread'), {});
