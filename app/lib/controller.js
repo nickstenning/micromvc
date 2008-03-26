@@ -1,3 +1,5 @@
+include('../../vendor/ejs/ejs');
+
 var Controller = new Class({
     Implements: [Options, Events],
     options: {

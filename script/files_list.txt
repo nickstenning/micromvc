@@ -1,0 +1,16 @@
+
+  'tiny_mce/tiny_mce_src.js'
+
+'tiny_mce/setup.js'
+
+'http://localhost:3007/demos/tiny_mce/tiny_mce/langs/en.js'
+
+'http://localhost:3007/demos/tiny_mce/tiny_mce/themes/advanced/editor_template_src.js'
+
+'http://localhost:3007/demos/tiny_mce/tiny_mce/themes/advanced/langs/en.js'
+
+'http://localhost:3007/demos/tiny_mce/tiny_mce/plugins/insertdatetime/editor_plugin_src.js'
+
+'http://localhost:3007/demos/tiny_mce/tiny_mce/plugins/contextmenu/editor_plugin_src.js'
+
+'http://localhost:3007/demos/tiny_mce/tiny_mce/plugins/emotions/editor_plugin_src.js'
