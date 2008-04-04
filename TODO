@@ -1,0 +1,13 @@
+# MicroMVC TODO list
+
+* Refactor model.js to be a little more generic.
+
+* Write more tests... maybe? Are they needed? More tests are always good!
+
+* Encapsulate data send to views in a 'data' object, so we can use iterators, etc.
+
+* Example application.
+
+* JSSpec -> Mootools?
+
+* EJS -> Mootools?
