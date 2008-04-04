@@ -1,8 +1,34 @@
+Request.JSON.RESTful = new Class({
+    Extends: Request.JSON,
+    initialize: function (model, objectId, options) {
+        this.parent(options);
+        this.model = model;
+        this.objectId = objectId;
+    },
+    callback: function (fn, binding) {
+        this.addEvent('onFailure', function (responseObject, responseText) {
+            // TODO: actually FAIL!
+            this.model.requestFailureCallback(this.options.method,
+                                              this.objectId,
+                                              responseObject,
+                                              responseText);
+            fn.bind(binding)();
+        });
+        this.addEvent('onSuccess', function (responseObject, responseText) {
+            this.model.requestSuccessCallback(this.options.method,
+                                              this.objectId,
+                                              responseObject,
+                                              responseText);
+            fn.bind(binding)();
+        });
+        return this;
+    }
+});
+
 var Model = new Class({
     Implements: [Options, Events],
     options: {
         baseurl: '/api/rest',
-        name: 'dummy',
         events: {
             //requestSent: $empty,
             //requestCompleted: $empty,
@@ -10,51 +36,52 @@ var Model = new Class({
             //requestFailure: $empty
             }
     },
-    initialize: function (options) {
+    initialize: function (name, options) {
         this.setOptions(options);
+        this.name = name;
+        this.requests = [];
         this.registry = [];
         this.entities = new Hash();
         this.addEvents(this.options.events);
     },
+    returnMe: function () {
+        return this;
+    },
     registerGet: function () {
-        this.request('get').send();
+        return this.request('get');
     },
     registerPost: function (entity) {
-        this.request('post').send(entity);
+        return this.request('post');
     },
     entityGet: function (id) {
-        this.request('get', id).send();
+        return this.request('get', id);
     },
-    entityPut: function (id, entity) {
-        this.request('put', id).send(entity);
+    entityPut: function (id) {
+        //return this.request('put', id);
+        return this.request('post', id);
     },
     entityDelete: function (id) {
-        this.request('delete', id).send();
+        //return this.request('delete', id);
+        return this.request('post', id);
     },
     request: function (reqMethod, id) {
-        var reqUrl = [this.options.baseurl, this.options.name, id].clean().join('/');
-        return new Request.JSON({
-            method: reqMethod,
+        var reqUrl = [this.options.baseurl, this.name, id].clean().join('/');
+        return new Request.JSON.RESTful(this, id, {
             url: reqUrl,
+            method: reqMethod,
             // Do sanity checking of JSON?
             secure: true,
-            // Fake PUT and DELETE requests (see MooTool source for details)?
+            // Fake PUT and DELETE requests? (see MooTools source for details)
             emulation: false,
             // Async callback methods:
             onRequest: this.fireEvent.bind(this, ['requestSent']),
-            onComplete: this.fireEvent.bind(this, ['requestCompleted']),
-            onSuccess: (function (responseObject, responseText) {
-                this.requestSuccessCallback(reqMethod, id, responseObject, responseText);
-            }).bind(this),
-            onFailure: (function (responseObject, responseText) {
-                this.requestFailureCallback(reqMethod, id, responseObject, responseText);
-            }).bind(this)
+            onComplete: this.fireEvent.bind(this, ['requestCompleted'])
         });
     },
     requestSuccessCallback: function (reqMethod, id, responseObject, responseText) {
         switch (reqMethod) {
         case 'get':
-            if (id !== null && id !== undefined) {
+            if ($chk(id)) {
                 // entityGet
                 this.registry.include(id);
                 this.entities[id] = responseObject;
@@ -77,6 +104,9 @@ var Model = new Class({
             // entityDelete
             this.registry.erase(id);
             this.entities.erase(id);
+            break;
+        default:
+            break;
         }
         this.fireEvent('requestSuccess');
     },

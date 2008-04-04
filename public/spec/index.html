@@ -1,21 +1,41 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
+  <head>
     <title>Microfacts Specs</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" media="screen" href="../assets/style/jsspec.css" />
-    <script type="text/javascript" charset="utf-8" src="../vendor/include.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="../assets/style/vendor/jsspec.css" />
+    
     <script type="text/javascript" charset="utf-8">
-        include.set_path('..')
-        include('vendor/mootools-trunk-1515',
-                'coverage/master',
-                'assets/behaviour/jsspec',
-                'assets/behaviour/diff_match_patch',
-                'spec/lib/controller_spec',
-                'spec/lib/model_spec')
+      // Let's not throw a tantrum if the browser doesn't have a console to write to.
+      if (!window.console || !console.firebug) {
+          var names = ["log", "debug", "info", "warn", "error", "assert", "dir", "dirxml", "group", "groupEnd", "time", "timeEnd", "count", "trace", "profile", "profileEnd"];
+
+          window.console = {};
+          for (var i = 0; i < names.length; i += 1) {
+              window.console[names[i]] = function () {};
+          }
+      }
     </script>
-</head>
-<body>
-</body>
+    
+    <!-- Vendoooooor stoof. -->
+    <script type="text/javascript" charset="utf-8" src="../vendor/mootools-trunk-1516.js"></script>
+    
+    <!-- Load source files - to be tested. -->
+    <script type="text/javascript" charset="utf-8" src="../app/lib/extensions.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../app/lib/model.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../app/lib/controller.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../app/models/thread.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../app/controllers/thread_controller.js"></script>
+   
+    <!-- Load JSSpec and associated stoof. -->
+    <script type="text/javascript" charset="utf-8" src="../assets/behaviour/vendor/jsspec.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../assets/behaviour/vendor/diff_match_patch.js"></script>
+    
+    <!-- Load specs. -->
+    <script type="text/javascript" charset="utf-8" src="../spec/lib/controller_spec.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../spec/lib/model_spec.js"></script>
+  </head>
+  <body>
+  </body>
 </html>

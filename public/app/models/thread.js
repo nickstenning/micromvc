@@ -1,3 +1,1 @@
-var Thread = new Model({
-    name: 'thread'
-});
+var Thread = new Model('thread');

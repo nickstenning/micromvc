@@ -29,26 +29,24 @@ describe('Model', {
                 name: "three"
             }]
         ];
-        Factlet = new Model({
-            baseurl: 'http://localhost:5000/api/rest',
-            name: 'factlet'
+        Factlet = new Model('factlet', {
+            baseurl: 'http://localhost:5000/api/rest'
         });
-        Thread = new Model({
-            baseurl: 'http://localhost:5000/api/rest',
-            name: 'thread'
+        Thread = new Model('thread', {
+            baseurl: 'http://localhost:5000/api/rest'
         });
-        Mock = new Model({});
+        Mock = new Model('mock');
     },
     // TODO: can't really test this properly until we have a fixtures library.
     'should fill its registry with a list of model objects from registerGet': function () {
-        Factlet.registerGet();
+        Factlet.registerGet().send();
         expect(Factlet.registry).should_not_be_null();
         expect($type(Factlet.registry)).should_be('array');
     },
-    
-    // Until the above is fixed: call the callbacks directly, skipping out the 
+
+    // Until the above is fixed: call the callbacks directly, skipping out the
     // server call.
-    
+
     // requestSuccessCallback: function (reqMethod, id, responseObject, responseText)
     'should process a GET without an id as a registerGet call': function () {
         Mock.requestSuccessCallback('get', null, mockData[0]);
@@ -81,5 +79,5 @@ describe('Model', {
         expect(Mock.entities.getClean()).should_be({});
         expect(Mock.registry).should_be_empty();
     }
-    
+
 });
